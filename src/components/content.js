@@ -48,7 +48,6 @@ function Content() {
             .then((response) => {
                 let newData = [...data, {url,email}];
                 setData(newData);
-                console.log(response.data);
             })
             .catch((error) => {
                 console.error(error);
