@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 function Content() {
     const [data, setData] = useState(null);
-    const apiEndpoint = `http://{process.env.API_SERVICE_SERVICE_HOST}:3001`;
+    const apiEndpoint = `http://${process.env.REACT_APP_API_ENDPOINT}:3001`;
 
     useEffect(() => {
         const url = apiEndpoint + "/notification";
@@ -15,7 +15,7 @@ function Content() {
                 document.getElementById("err").innerHTML = "Could not fetch data";
                 console.error(error);
             });
-    }, []);
+    }, [apiEndpoint]);
 
     const deleteNotification = (email, url) => {
         document.getElementById("err").innerHTML = "";

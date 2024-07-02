@@ -17,6 +17,9 @@ spec:
           image: pecarmoregistry.azurecr.io/noti-frontend:latest
           ports:
             - containerPort: 3000
+          env:
+            - name: REACT_APP_API_ENDPOINT
+              value: REACT_APP_API_ENDPOINT_VALUE
 ---
 apiVersion: v1
 kind: Service
