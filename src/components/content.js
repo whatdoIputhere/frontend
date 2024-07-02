@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 function Content() {
     const [data, setData] = useState(null);
-    const apiEndpoint = `http://${process.env.REACT_APP_API_ENDPOINT}:3001`;
+    const apiEndpoint = `http://${process.env.REACT_APP_API_ENDPOINT}:80`;
 
     useEffect(() => {
         const url = apiEndpoint + "/notification";
