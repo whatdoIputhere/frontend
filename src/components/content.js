@@ -3,7 +3,7 @@ import axios from "axios";
 
 function Content() {
     const [data, setData] = useState(null);
-    const apiEndpoint = "http://localhost:3001";
+    const apiEndpoint = `http://{process.env.API_SERVICE_SERVICE_HOST}:3001`;
 
     useEffect(() => {
         const url = apiEndpoint + "/notification";
