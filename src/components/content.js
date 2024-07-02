@@ -6,6 +6,7 @@ function Content() {
 
     useEffect(() => {
         const url = apiEndpoint + "/notification";
+        console.log(url);
         axios
             .get(url)
             .then((response) => {
