@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: noti-frontend-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: frontend
+      app: noti-frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: noti-frontend
     spec:
       containers:
-        - name: frontend
-          image: pecarmoregistry.azurecr.io/frontend:latest
+        - name: noti-frontend
+          image: pecarmoregistry.azurecr.io/noti-frontend:latest
           ports:
             - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: noti-frontend-service
 spec:
   type: LoadBalancer
   selector:
-    app: frontend
+    app: noti-frontend
   ports:
     - protocol: TCP
       port: 3000
