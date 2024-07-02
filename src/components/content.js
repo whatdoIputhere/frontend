@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+console.log(process.env);
 function Content() {
     const [data, setData] = useState(null);
     const apiEndpoint = `http://{process.env.API_SERVICE_SERVICE_HOST}:3001`;
