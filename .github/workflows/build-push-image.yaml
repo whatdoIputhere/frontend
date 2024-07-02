@@ -65,8 +65,8 @@ jobs:
       - name: Apply deployment
         run: |
           az aks get-credentials --resource-group infra-rg-neu --name pecarmoaks
-          IP=$(kubectl get svc api-service -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+          IP=$(kubectl get svc api-service -o=jsonpath={.status.loadBalancer.ingress[0].ip})
           echo $IP
-          kubectl set env deployment/${{ steps.repo.outputs.repo }}-deployment REACT_APP_API_ENDPOINT=$IP
+          sed -i 's/REACT_APP_API_ENDPOINT_VALUE/$IP/g' deployment.yaml
           kubectl apply -f deployment.yaml
           kubectl rollout restart deployment/${{ steps.repo.outputs.repo }}-deployment
