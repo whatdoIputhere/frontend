@@ -35,12 +35,12 @@ jobs:
               uses: azure/login@v2
               with:
                   creds: ${{ secrets.AZURE_CREDENTIALS }}
-                  
+
             - name: Replace env variables in deployment.yaml
               run: |
                   az aks get-credentials --resource-group infra-rg-neu --name pecarmoaks
                   IP=$(kubectl get svc api-service -o=jsonpath={.status.loadBalancer.ingress[0].ip})
-                  sed -i "s/REACT_APP_API_ENDPOINT_VALUE/$IP/g" deployment.yaml
+                  export REACT_APP_API_ENDPOINT=$IP
 
             - name: Build and push Docker image with 'latest' tag
               uses: docker/build-push-action@v5
@@ -76,5 +76,7 @@ jobs:
             - name: Apply deployment
               run: |
                   az aks get-credentials --resource-group infra-rg-neu --name pecarmoaks
+                  IP=$(kubectl get svc api-service -o=jsonpath={.status.loadBalancer.ingress[0].ip})
+                  sed -i "s|REACT_APP_API_ENDPOINT_VALUE|$IP|g" deployment.yaml
                   kubectl apply -f deployment.yaml
                   kubectl rollout restart deployment/${{ steps.repo.outputs.repo }}-deployment
