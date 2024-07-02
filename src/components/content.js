@@ -3,9 +3,10 @@ import axios from "axios";
 
 function Content() {
     const [data, setData] = useState(null);
+    const apiEndpoint = "http://app-service.default.svc.cluster.local:3001";
 
     useEffect(() => {
-        const url = "app-service.default.svc.cluster.local:3001/notification";
+        const url = apiEndpoint + "/notification";
         axios
             .get(url)
             .then((response) => {
@@ -20,7 +21,7 @@ function Content() {
     const deleteNotification = (email, url) => {
         document.getElementById("err").innerHTML = "";
         axios
-            .delete("app-service.default.svc.cluster.local:3001/notification/byemailurl", { data: { email, url } })
+            .delete(apiEndpoint + "/notification/byemailurl", { data: { email, url } })
             .then(() => {
                 let newData = data.filter((item) => item.email !== email || item.url !== url);
                 setData(newData);
@@ -34,7 +35,7 @@ function Content() {
     const deleteAllNotifications = () => {
         document.getElementById("err").innerHTML = "";
         axios
-            .delete("app-service.default.svc.cluster.local:3001/notification")
+            .delete(apiEndpoint + "/notification")
             .then(() => {
                 setData([]);
             })
@@ -50,7 +51,7 @@ function Content() {
         const url = document.getElementById("url").value;
         const email = document.getElementById("email").value;
         axios
-            .post("app-service.default.svc.cluster.local:3001/notification", { url, email })
+            .post(apiEndpoint + "/notification", { url, email })
             .then((response) => {
                 let newData = [...data, { url, email }];
                 setData(newData);
