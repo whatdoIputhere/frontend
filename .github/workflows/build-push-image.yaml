@@ -51,7 +51,9 @@ jobs:
               run: |
                 az aks get-credentials --resource-group infra-rg-neu --name pecarmoaks
                 api_domain=$(kubectl get svc app -o=jsonpath={.metadata.annotations.external-dns\.alpha\.kubernetes\.io/hostname})
+                echo $api_domain
                 echo "REACT_APP_API_ENDPOINT=$api_domain" >> $GITHUB_ENV
+                echo ${{env.REACT_APP_API_ENDPOINT}}
 
             - name: Build and push Docker image with 'latest' tag
               uses: docker/build-push-action@v5
@@ -91,7 +93,5 @@ jobs:
             - name: Apply deployment
               run: |
                   az aks get-credentials --resource-group infra-rg-neu --name pecarmoaks
-                  api_domain=$(kubectl get svc app -o=jsonpath={.metadata.annotations.external-dns\.alpha\.kubernetes\.io/hostname})
-                  sed -i "s|REACT_APP_API_ENDPOINT_VALUE|$api_domain|g" deployment.yaml
                   kubectl apply -f deployment.yaml
                   kubectl rollout restart deployment/${{ steps.repo.outputs.repo }}-deployment
