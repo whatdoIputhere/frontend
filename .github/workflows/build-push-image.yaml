@@ -92,4 +92,4 @@ jobs:
               run: |
                   az aks get-credentials --resource-group infra-rg-neu --name pecarmoaks
                   kubectl apply -f deployment.yaml
-                  kubectl rollout restart deployment/${{ steps.repo.outputs.repo }}-deployment
+                  kubectl rollout restart deployment/${{ steps.repo.outputs.repo }}
