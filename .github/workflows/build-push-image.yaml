@@ -50,7 +50,7 @@ jobs:
             - name: Replace env variables in deployment.yaml
               run: |
                 az aks get-credentials --resource-group infra-rg-neu --name pecarmoaks --overwrite-existing
-                api_domain=$(kubectl get svc app -o=jsonpath='{.metadata.annotations.external-dns\.alpha\.kubernetes\.io/hostname}')
+                api_domain=$(kubectl get svc api -o=jsonpath='{.metadata.annotations.external-dns\.alpha\.kubernetes\.io/hostname}')
                 echo "REACT_APP_API_ENDPOINT=$api_domain" >> $GITHUB_ENV
 
             - name: Build and push Docker image with 'latest' tag
